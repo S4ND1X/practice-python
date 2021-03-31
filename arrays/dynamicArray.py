@@ -17,7 +17,7 @@ class DynamicArray(object):
 
     def __getItem__(self, k):
         #return element at k index
-        if k >= self.size and k >=0:
+        if k >= self.size or k <=0:
             return IndexError("K is out of bounds")
         return self.A[k]
     
@@ -47,12 +47,24 @@ class DynamicArray(object):
     
     def find(self, k):
         #return index of given k element and -1 if not found
-        for index in self.size:
+        for index in range(self.size):
             if(self.A[index] == k):
                 return index
-            return -1
+        return -1
     
+    def pop(self):
+        #remove and return last item on array
+        if self.size <= 0:
+           return IndexError("Array is empty, cannot pop")
+        last_val = self.A[self.size-1]
+        self.size -=1
+        return last_val
 
+    def show_elements(self):
+        #Debug method to prtint all elements in array  
+        for i in range(self.size):
+            print(self.A[i], end=", ")
+        print()
         
 
 dynamic_array = DynamicArray();
@@ -61,18 +73,38 @@ print("Capacity:", dynamic_array.__capacity__())
 print("Size: " ,dynamic_array.__size__())
 
 for i in range(16):
-    dynamic_array.append(i)
+    dynamic_array.append(i+1)
 
 print("Capacity:", dynamic_array.__capacity__())
 print("Size: " ,dynamic_array.__size__())    
 
-dynamic_array.append(16)
+dynamic_array.append(17)
 
 print("Capacity:", dynamic_array.__capacity__())
 print("Size: " ,dynamic_array.__size__())  
 
 print("Element at " , 12, ": " ,dynamic_array.__getItem__(12))
-    
+
+dynamic_array.show_elements()
+
+print("Element at " , 17, ": " ,dynamic_array.__getItem__(17))
+
+print("Find number:  " , 5, ": " ,dynamic_array.find(5))
+print("Find number:  " , 20, ": " ,dynamic_array.find(20))
+
+print("Last number: ", dynamic_array.pop())
+print("Size: ", dynamic_array.__size__())
+
+for i in range (dynamic_array.__size__()):
+    print(dynamic_array.pop(), end=', ')
+print()
+
+print(dynamic_array.pop())
+print(dynamic_array.pop())
+print("Capacity:", dynamic_array.__capacity__())
+print("Size: ", dynamic_array.__size__())
+dynamic_array.show_elements()
+
     
         
 
